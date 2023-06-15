@@ -1,6 +1,6 @@
-interface Company {
+export interface Company {
+  nit: string,
   name: string,
-  phone: string,
-  id: number,
   address: string
+  phone: string,
 }

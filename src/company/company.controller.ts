@@ -1,4 +1,5 @@
-import { Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Company } from './company.entity';
 import { CompanyService } from './company.service';
 
 @Controller('company')
@@ -12,8 +13,19 @@ export class CompanyController {
   }
 
   @Post("create")
-  createCompany(@Param() params: Company){
-    return this.companyService.create(params);
+  createCompany(@Body() body: Company){
+    this.companyService.create(body);
+    return 'Company created';
+  }
+
+  @Post("update")
+  updateCompany(@Body() body: Company){
+    return this.companyService.update(body);
+  }
+
+  @Post("delete")
+  deleteCompany(@Body('nit') nit){
+    return this.companyService.delete(nit);
   }
 
 }

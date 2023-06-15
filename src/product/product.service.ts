@@ -1,8 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { Product } from 'src/entities/Product';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Product } from './product.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class ProductService {
+
+  constructor(
+    @InjectRepository(Product)
+    private productRepository: Repository<Product>
+  ) {}
 
   private ListProducts = [
     {
@@ -29,14 +36,15 @@ export class ProductService {
       amount: 73,
       image: 'https://i.imgur.com/OIXgVNX.jpg'
     },
-  ]
+  ];
 
   findAll(){
-    return this.ListProducts;
+    return this.productRepository.find();
   }
 
-  create(data: Product){
-    return data
+  async create(data: Product){
+    const newProduct = this.productRepository.create(data);
+    return this.productRepository.save(newProduct);
   }
   
   update(data: Product){

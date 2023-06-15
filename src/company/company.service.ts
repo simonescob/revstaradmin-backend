@@ -1,7 +1,15 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Company } from './company.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class CompanyService {
+
+  constructor(
+    @InjectRepository(Company)
+    private companyRepository: Repository<Company>
+  ) {}
 
   private ListCompanies = [
     {
@@ -25,11 +33,46 @@ export class CompanyService {
   ]
 
   findAll(){
-    return this.ListCompanies;
+    return this.companyRepository.find();
   }
 
-  create(data: Company){
-    return data
+  async create(data: Company){
+    const newCompany = this.companyRepository.create(data);
+    return this.companyRepository.save(newCompany);
+  }
+
+  async update(data: Company){
+    try {
+
+      const companyUpdated = await this.companyRepository
+      .createQueryBuilder('company')
+      .update(Company)
+      .set(data)
+      .where("company.nit = :nit", { nit: data.nit })
+      .execute()
+
+      return companyUpdated;
+      
+    } catch (error) {
+      return `ha ocurrido un error: ${error}`
+    }
+  }
+
+  async delete(nit: number){
+    try {
+
+      const companydeleted = await this.companyRepository
+      .createQueryBuilder('company')
+      .delete()
+      .from(Company)
+      .where("company.nit = :nit", { nit })
+      .execute()
+
+      return companydeleted;
+      
+    } catch (error) {
+      return `ha ocurrido un error: ${error}`
+    }
   }
 
 }
