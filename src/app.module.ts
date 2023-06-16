@@ -11,7 +11,7 @@ import { Company } from './company/company.entity';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'mysql',
+      type: 'postgres',
       host: process.env.DB_HOST, // MySQL server host
       port: parseInt(process.env.DB_PORT), // MySQL server port
       username: process.env.DB_USER, // MySQL username
