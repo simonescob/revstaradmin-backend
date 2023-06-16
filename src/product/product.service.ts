@@ -47,12 +47,38 @@ export class ProductService {
     return this.productRepository.save(newProduct);
   }
   
-  update(data: Product){
-    return data
+  async update(data: Product){
+    try {
+
+      const productUpdated = await this.productRepository
+      .createQueryBuilder('product')
+      .update(Product)
+      .set(data)
+      .where("product.id = :id", { id: data.id })
+      .execute()
+
+      return productUpdated;
+      
+    } catch (error) {
+      return `ha ocurrido un error: ${error}`
+    }
   }
   
-  delete(data: Product){
-    return data
+  async delete(id: number){
+    try {
+
+      const companydeleted = await this.productRepository
+      .createQueryBuilder('product')
+      .delete()
+      .from(Product)
+      .where("product.id = :id", { id })
+      .execute()
+
+      return companydeleted;
+      
+    } catch (error) {
+      return `ha ocurrido un error: ${error}`
+    }
   }
 
 }

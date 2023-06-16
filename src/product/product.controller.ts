@@ -13,24 +13,19 @@ export class ProductController {
   }
 
   @Post("create")
-  @HttpCode(201)
-  createProduct(@Body() body: Product): string {
+  createProduct(@Body() body: Product) {
     console.log(this.productService.create(body));
     return 'Product created.';
   }
 
-  @Post("update/:id")
-  @HttpCode(201)
-  updateProduct(@Body() body: Product): string {
-    // console.log(this.productService.create(body));
-    return 'Product updated';
+  @Post("update")
+  updateProduct(@Body() body: Product) {
+    return this.productService.update(body);
   }
 
-  @Post("delete/:id")
-  @HttpCode(201)
-  deleteProduct(@Body() body: Product): string {
-    // console.log(this.productService.create(body));
-    return 'Product deleted';
+  @Post("delete")
+  deleteProduct(@Body('id') id) {
+    return this.productService.delete(id);
   }
 
 }
