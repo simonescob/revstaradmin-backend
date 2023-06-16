@@ -12,11 +12,11 @@ import { Company } from './company/company.entity';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost', // MySQL server host
-      port: 3306, // MySQL server port
-      username: 'root', // MySQL username
-      password: '', // MySQL password
-      database: 'RevStarAdmin', // MySQL database name
+      host: process.env.DB_HOST, // MySQL server host
+      port: parseInt(process.env.DB_PORT), // MySQL server port
+      username: process.env.DB_USER, // MySQL username
+      password: process.env.DB_PASSWORD, // MySQL password
+      database: process.env.DB_NAME, // MySQL database name
       entities: [__dirname + '/**/*.entity{.ts,.js}'], // Location of your entity files
       synchronize: true, // Automatic schema synchronization (use with caution in production)
     }),
