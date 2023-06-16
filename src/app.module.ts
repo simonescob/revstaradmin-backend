@@ -28,7 +28,6 @@ import { AuthController } from './auth.controller';
       database: process.env.DB_NAME, // MySQL database name
       entities: [__dirname + '/**/*.entity{.ts,.js}'], // Location of your entity files
       synchronize: true, // Automatic schema synchronization (use with caution in production)
-      ssl: false
     }),
     TypeOrmModule.forFeature([Product, Company]),
   ],
