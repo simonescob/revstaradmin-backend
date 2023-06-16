@@ -23,8 +23,8 @@ import { AuthController } from './auth.controller';
       type: 'postgres',
       host: process.env.DB_HOST, // MySQL server host
       port: parseInt(process.env.DB_PORT), // MySQL server port
-      username: 'postgres', // MySQL username
-      password: '27442041s', // MySQL password
+      username: process.env.DB_USER, // MySQL username
+      password: process.env.DB_PASSWORD, // MySQL password
       database: process.env.DB_NAME, // MySQL database name
       entities: [__dirname + '/**/*.entity{.ts,.js}'], // Location of your entity files
       synchronize: true, // Automatic schema synchronization (use with caution in production)
